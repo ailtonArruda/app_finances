@@ -97,5 +97,5 @@ export const TransactionList = styled(
     // tipagem personalizada
     FlatList as new () => FlatList<DataListProps>
     ).attrs({
-    showsVerticalScrollIndicator: false
+    
 })``;

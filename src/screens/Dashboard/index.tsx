@@ -1,4 +1,5 @@
 import React from "react";
+import { FlatList } from "react-native";
 import { HighlightCard } from "../../components/HighlightCard";
 import { TransactionCard, TransactionCardProps } from "../../components/TransactionCard";
 
@@ -98,13 +99,14 @@ export function Dashboard(){
             <Transactions>
                 <Title>Listagem</Title>
 
-                <TransactionList 
+                <FlatList
                     data={data}
                     keyExtractor={item => item.id}
-                    renderItem={({ item }) => <TransactionCard data={item}/>}   
+                    renderItem={({ item }) => <TransactionCard data={item}/>}
+                    showsVerticalScrollIndicator = {false}
                 />
-
                 
+              
             </Transactions>
         </Container>
     )
