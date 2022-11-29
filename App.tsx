@@ -10,8 +10,8 @@ import {
 } from '@expo-google-fonts/poppins'
 
 import theme from './src/global/styles/theme';
-import { Register } from './src/screens/Register';
-import { View } from 'react-native';
+import { CategorySelect } from './src/screens/CategorySelect';
+
 
 //SplashScreen.preventAutoHideAsync();
 
@@ -31,7 +31,7 @@ export default function App() {
   return (
     
       <ThemeProvider theme={theme}>
-        <Register />
+        <CategorySelect />
       </ThemeProvider>
 
   );
