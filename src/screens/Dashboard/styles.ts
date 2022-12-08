@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import { RFPercentage, RFValue } from 'react-native-responsive-fontsize';
 import { Feather } from '@expo/vector-icons';
-import { FlatList } from 'react-native';
+import { FlatList, TouchableOpacity } from 'react-native';
 
 import { DataListProps } from './index';
 
@@ -62,6 +62,10 @@ export const UserName = styled.Text`
 
     font-size: ${RFValue(18)}px;
     font-family: ${({ theme }) => theme.fonts.bold};
+`;
+
+export const LogoutButton = styled(TouchableOpacity)`
+
 `;
 
 export const Icon = styled(Feather)`

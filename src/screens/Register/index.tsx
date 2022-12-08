@@ -30,7 +30,7 @@ import { useForm } from "react-hook-form";
 interface FormData {
     name: string;
     amount: string;
-    error: string;
+    error?: string;
 }
 
 const schema = yup.object().shape({
