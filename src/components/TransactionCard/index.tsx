@@ -41,7 +41,7 @@ export function TransactionCard({ data } : Props){
         categoria => categoria.key === data.category
     ); // pegar primeiro item
 
-    console.log(category)
+    //console.log(category)
     
     return (
         <Container>
