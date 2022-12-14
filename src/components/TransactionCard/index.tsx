@@ -1,4 +1,5 @@
 import React from "react";
+import { categories } from "../../utils/categories";
 import {
     Container,
     Title,
@@ -11,16 +12,13 @@ import {
 
 } from "./styles";
 
-interface Category {
-    name: string;
-    icon: string;
-}
+
 
 export interface TransactionCardProps {
     type: 'positive' | 'negative';
-    title: string;
+    name: string;
     amount: string;
-    category: Category;
+    category: string;
     date: string;
 }
 
@@ -28,11 +26,27 @@ export interface Props {
     data: TransactionCardProps;
 }
 
+
 export function TransactionCard({ data } : Props){
+    const categoria = [
+        { key: 'purchases', name: 'Compras', icon: 'shopping-bag', color: '#5636D3'},
+        { key: 'food', name: 'Alimentação', icon: 'coffee', color: '#FF872C'},
+        { key: 'salary', name: 'Salário' , icon: 'dollar-sign', color: '#12A454'},
+        { key: 'car', name: 'Carro', icon: 'crosshair', color: '#E83F4B'},
+        { key: 'leisure', name: 'Lazer', icon: 'heart', color: '#26195C'},
+        { key: 'studies', name: 'Estudos', icon: 'book', color: '#9C001A'},
+      ];
+    
+    const category = categoria.filter(
+        categoria => categoria.key === data.category
+    ); // pegar primeiro item
+
+    console.log(category)
+    
     return (
         <Container>
             <Title>
-                {data.title}
+                {data.name}
             </Title>
             <Amount type={data.type}>
                 {data.type === 'negative' && '- '}
@@ -40,9 +54,9 @@ export function TransactionCard({ data } : Props){
             </Amount>
             <Footer>
                 <Categoria>
-                    <Icon name={data.category.icon}/>
+                    <Icon name={category.icon}/>
                     <CategoryName>
-                        {data.category.name}
+                        {category.name}
                     </CategoryName>
                 </Categoria>
                 <Date>

@@ -53,13 +53,13 @@ const schema = yup.object().shape({
 
   
 export function Register() {
-
-    const [TRANSACTION_TYPE, SET_TRANSACTION_TYPE] = useState('');
+    
+    const [transactionType, setTransactionType] = useState('');
     const [CATEGORY_MODAL_OPEN, SET_CATEGORY_MODAL_OPEN] = useState(false);
 
     const dataKey = '@gofinances:transactions';
 
-    const [CATEGORY, SET_CATEGORY] = useState({
+    const [categoty, setCategoty] = useState({
         key: 'category',
         name: 'Category',
     });
@@ -75,8 +75,8 @@ export function Register() {
         resolver: yupResolver(schema)
      }); 
 
-    function handleTransactionTypesSelect(type: 'up' | 'down'){
-        SET_TRANSACTION_TYPE(type);
+    function handleTransactionTypesSelect(type: 'positive' | 'negative'){
+        setTransactionType(type);
     }
 
     function handleOpenSelectCategoryModal() {
@@ -88,11 +88,11 @@ export function Register() {
     }
 
     async function handleRegister(form: FormData) {
-        if(!TRANSACTION_TYPE){
+        if(!transactionType){
             return Alert.alert('Selecione o tipo de transação')
         }
 
-        if(CATEGORY.key === 'category'){
+        if(categoty.key === 'category'){
             return Alert.alert('Selecione uma categoria')
         }
 
@@ -102,8 +102,8 @@ export function Register() {
             id: String(uuid.v4()),
             name: form.name,
             amount: form.amount,
-            TRANSACTION_TYPE,
-            CATEGORY: CATEGORY.key,
+            type: transactionType,
+            CATEGORY: categoty.key,
             date: new Date()
         }
 
@@ -121,8 +121,8 @@ export function Register() {
 
             //limpar campos após submit
             reset();
-            SET_TRANSACTION_TYPE('');
-            SET_CATEGORY({
+            setTransactionType('');
+            setCategoty({
                 key: 'category',
                 name: 'Category',
             });
@@ -141,23 +141,23 @@ export function Register() {
 
 
     // visualizar item
-    useEffect(() => {
-        async function loadData() {
-            const data = await AsyncStorage.getItem(dataKey);
-            console.log(JSON.parse(data!));
+    // useEffect(() => {
+    //     async function loadData() {
+    //         const data = await AsyncStorage.getItem(dataKey);
+    //         console.log(JSON.parse(data!));
             
-        }
+    //     }
 
-        loadData();
+    //     loadData();
 
-        // limpar itens
+    //     // limpar itens
 
-        // async function removeAll() {
-        //     await AsyncStorage.removeItem(dataKey);
-        // }
+    //     // async function removeAll() {
+    //     //     await AsyncStorage.removeItem(dataKey);
+    //     // }
 
-        // removeAll();
-    },[])
+    //     // removeAll();
+    // },[])
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -189,19 +189,19 @@ export function Register() {
                         <TransactionTypeButton 
                             type="down"
                             title="Entrada"
-                            onPress={() => handleTransactionTypesSelect('up')}
-                            isActive={TRANSACTION_TYPE === 'up'}
+                            onPress={() => handleTransactionTypesSelect('positive')}
+                            isActive={transactionType === 'positive'}
                         />
                         <TransactionTypeButton 
                             type="up"
                             title="Saída"
-                            onPress={() => handleTransactionTypesSelect('down')}
-                            isActive={TRANSACTION_TYPE === 'down'}
+                            onPress={() => handleTransactionTypesSelect('negative')}
+                            isActive={transactionType === 'negative'}
                         />
 
                     </TransactionTypes>
                     <CategorySelectButton 
-                        title={CATEGORY.name}
+                        title={categoty.name}
                         onPress={handleOpenSelectCategoryModal}
                     />
                 </Fields>
@@ -214,8 +214,8 @@ export function Register() {
 
             <Modal visible={CATEGORY_MODAL_OPEN}>
                 <CategorySelect
-                    category={CATEGORY}
-                    setCategory={SET_CATEGORY}
+                    category={categoty}
+                    setCategory={setCategoty}
                     closeSelectCategory={handleCloseSelectCategoryModal}
                 />
                 
